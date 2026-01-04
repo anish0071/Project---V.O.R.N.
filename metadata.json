@@ -1,0 +1,12 @@
+{
+  "name": "VORN EvoShield",
+  "short_name": "EvoShield",
+  "description": "Production PWA for PCI/PII compliance with agentic evolution.",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0f172a",
+  "background_color": "#0f172a",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

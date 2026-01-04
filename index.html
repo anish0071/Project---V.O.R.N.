@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VORN EvoShield | Visa Compliance Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            visa: {
+              navy: '#001d4a',
+              blue: '#0033a0',
+              gold: '#f7b600',
+              platinum: '#f8fafc',
+              border: '#e2e8f0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+    
+    body {
+      background-color: #f8fafc;
+      color: #001d4a;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom VORN Logo style mimicking the Visa Logo */
+    .vorn-logo {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 900;
+      font-style: italic;
+      color: #0033a0;
+      line-height: 1;
+      position: relative;
+    }
+
+    .vorn-logo .v-letter {
+      position: relative;
+    }
+
+    .vorn-logo .v-letter::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -15%;
+      width: 60%;
+      height: 40%;
+      background-color: #f7b600;
+      clip-path: polygon(0 0, 100% 0, 80% 100%, 0 20%);
+      border-radius: 2px;
+      z-index: 1;
+    }
+
+    /* Rotation animation for the Project Logo */
+    @keyframes slow-rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .project-logo-animate {
+      animation: slow-rotate 8s linear infinite;
+    }
+
+    /* Immersive 3D Card sized to feel substantial and fill space */
+    .visa-card-3d {
+      width: 90vw;
+      max-width: 1200px;
+      aspect-ratio: 1.58 / 1;
+      background: 
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.05) 2px,
+          rgba(255, 255, 255, 0.05) 4px
+        ),
+        linear-gradient(135deg, #001d4a 0%, #0033a0 100%);
+      border-radius: 3vw;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) perspective(2000px);
+      box-shadow: 0 50px 100px rgba(0,0,0,0.8), inset 0 0 150px rgba(0,0,0,0.4);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      flex-direction: column;
+      padding: 5vw;
+      color: white;
+      pointer-events: none;
+      z-index: 10000;
+      will-change: transform;
+    }
+
+    .card-chip {
+      width: 12%;
+      aspect-ratio: 1.2 / 1;
+      background: linear-gradient(135deg, #f7b600 0%, #d49a00 100%);
+      border-radius: 1vw;
+      margin-top: 2vw;
+      position: relative;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+    
+    .card-chip::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(to right, transparent 32%, rgba(0,0,0,0.15) 33%, transparent 34%),
+        linear-gradient(to bottom, transparent 32%, rgba(0,0,0,0.15) 33%, transparent 34%);
+      background-size: 100% 100%;
+    }
+
+    .wireless-icon {
+      margin-left: 2vw;
+      font-size: 3vw;
+      transform: rotate(90deg);
+      opacity: 0.8;
+    }
+
+    .card-number {
+      font-weight: 600;
+      font-size: 5vw;
+      letter-spacing: 0.8vw;
+      margin-top: auto;
+      color: #f7b600;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3vw;
+    }
+
+    .card-holder-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-holder-name {
+      font-weight: 700;
+      font-size: 2.5vw;
+      letter-spacing: 0.4vw;
+      color: #f7b600;
+      text-transform: uppercase;
+    }
+
+    .visa-logo-white {
+      font-weight: 900;
+      font-style: italic;
+      font-size: 8vw;
+      line-height: 0.8;
+      display: block;
+    }
+    
+    .visa-gold-subtext {
+      color: #f7b600;
+      font-weight: bold;
+      font-size: 2.5vw;
+      letter-spacing: 0.2vw;
+      text-transform: uppercase;
+    }
+
+    /* Full-screen Transition Container */
+    .transition-container {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.1s;
+    }
+
+    .transition-container.active {
+      opacity: 1;
+    }
+
+    /* Massive Diagonal Swipe and Trace-back Animation */
+    .visa-card-3d.animate-swipe {
+      animation: swipe-full 1.8s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+    }
+
+    @keyframes swipe-full {
+      0% {
+        transform: translate(-150%, -150%) perspective(2000px) rotateX(45deg) rotateY(-40deg) rotateZ(-30deg) scale(0.5);
+      }
+      50% {
+        transform: translate(-50%, -50%) perspective(2000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(2.5);
+      }
+      100% {
+        transform: translate(150%, 150%) perspective(2000px) rotateX(-45deg) rotateY(40deg) rotateZ(30deg) scale(0.5);
+      }
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .visa-btn-primary {
+      background: #001d4a;
+      color: white;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
